@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+/* Overall page style */
+body {
+  background-color: #191A1A;
+  color: #E8E8E6;
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Main container centers content */
+.main-container {
+  text-align: center;
+  width: 90%;
+  max-width: 1200px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Row for dropdowns side by side */
+.dropdown-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.dropdown-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropdown-group label {
+  margin-bottom: 5px;
+}
+
+/* Instruction text below dropdowns */
+.instruction {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Results container for side-by-side boxes */
+#results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Translation container (left) with special styling */
+#transcriptions {
+  flex: 1 1 300px;
+  background-color: #202222;
+  color: #8C9191;
+  padding: 10px;
+  text-align: left;
+  border-radius: 5px;
+}
+
+/* Original transcription container (right) with no extra box */
+#originalTranscriptions {
+  flex: 1 1 300px;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Headings, paragraphs, and select styling */
+h1, h2, p, select {
+  color: #E8E8E6;
+}
+
+/* Button styling: pill-shaped */
+button {
+  background-color: #202222;
+  color: #E8E8E6;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+/* Start Recording button when disabled shows text in #8C9191 */
+#record:disabled {
+  color: #8C9191;
+}
+
+/* Select dropdown styling */
+select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #8C9191;
+  background-color: #202222;
+  color: #E8E8E6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .dropdown-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  #results {
+    flex-direction: column;
+  }
+}
