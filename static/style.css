@@ -41,10 +41,58 @@ body {
   margin-bottom: 5px;
 }
 
-/* Instruction text below dropdowns */
-.instruction {
-  font-size: 14px;
+/* Instruction pills container */
+.instructions-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
   margin-bottom: 20px;
+}
+
+/* Instruction pill styling (similar to button) */
+.instruction-pill {
+  background-color: #202222;
+  color: #E8E8E6;
+  border-radius: 30px;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.instruction-pill:hover {
+  background-color: #2A2A2A;
+}
+
+/* Chevron styling; using inline-flex to center vertically */
+.chevron {
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+/* Instruction details (hidden by default) */
+.instruction-details {
+  text-align: left;
+  margin-top: 5px;
+  background-color: #202222;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #E8E8E6;
+}
+
+/* Instruction details list styling */
+.instruction-details ol {
+  padding-left: 20px;
+  margin: 0;
 }
 
 /* Results container for side-by-side boxes */
@@ -66,7 +114,7 @@ body {
   border-radius: 5px;
 }
 
-/* Original transcription container (right) with no extra box */
+/* Original transcription container (right) with no extra box styling */
 #originalTranscriptions {
   flex: 1 1 300px;
   padding: 10px;
@@ -105,13 +153,37 @@ select {
   color: #E8E8E6;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for mobile */
 @media (max-width: 600px) {
+  /* Increase font sizes and padding for better readability */
+  h1 {
+    font-size: 28px;
+  }
+  h2 {
+    font-size: 22px;
+  }
+  p, select, button, .instruction-pill {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+  /* Increase padding in main container */
+  .main-container {
+    padding: 20px;
+  }
+  /* Allow results to wrap: force the boxes to take 100% width (stack vertically) */
+  #results {
+    flex-direction: column;
+    gap: 20px;
+  }
+  /* Optionally, adjust the dropdown row to stack vertically */
   .dropdown-row {
     flex-direction: column;
     align-items: center;
   }
-  #results {
+  /* Let instruction pills wrap more gracefully */
+  .instructions-container {
     flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 }

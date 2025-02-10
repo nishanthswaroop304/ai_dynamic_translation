@@ -34,9 +34,31 @@
           </select>
         </div>
       </div>
-      <p class="instruction">
-        Speak in the "Translate from" language or play an audio/video from another device to translate on the fly.
-      </p>
+      <div class="instructions-container">
+        <div class="instruction-pill" id="conversationPill" onclick="toggleInstruction('conversation')">
+          <span>Instructions to translate a conversation</span>
+          <span class="chevron">⌄</span>
+        </div>
+        <div class="instruction-pill" id="audioVideoPill" onclick="toggleInstruction('audio')">
+          <span>Instructions to translate an audio/video</span>
+          <span class="chevron">⌄</span>
+        </div>
+      </div>
+      <div class="instruction-details" id="conversationDetails" style="display: none;">
+        <ol>
+          <li>Select the correct languages from the above dropdown</li>
+          <li>Click on "Start Recording" and speak into the mic</li>
+          <li>Check the "Voice Over" option to get real-time translation. Wear an earphone to ensure Voice Over does not interfere with the translation.</li>
+        </ol>
+      </div>
+      <div class="instruction-details" id="audioDetails" style="display: none;">
+        <ol>
+          <li>Select the correct languages from the above dropdown</li>
+          <li>Play audio/video on a different device (like an iPad) closer to the mic.</li>
+          <li>Click on "Start Recording" and check the "Voice Over" option for real-time translation</li>
+          <li>A wired earphone works best for voice over since AirPods (Pro in particular) may not pick up external sound properly.</li>
+        </ol>
+      </div>
       <p>
         <button id="record">Start Recording</button>
         <button id="stop" disabled>Stop Recording</button>
@@ -56,7 +78,7 @@
         <div id="transcriptions">
           <h2>Translation</h2>
         </div>
-        <!-- Original transcription container (appears in page background) -->
+        <!-- Original transcription container (appears with page background) -->
         <div id="originalTranscriptions">
           <h2>Original Transcription</h2>
         </div>
@@ -69,13 +91,22 @@
     </script>
 
     <script>
+      // Toggle instructions visibility for both pills.
+      function toggleInstruction(type) {
+        if (type === "conversation") {
+          const details = document.getElementById("conversationDetails");
+          details.style.display = details.style.display === "none" ? "block" : "none";
+        } else if (type === "audio") {
+          const details = document.getElementById("audioDetails");
+          details.style.display = details.style.display === "none" ? "block" : "none";
+        }
+      }
+
       let audioStream;
       let mediaRecorder;
-      let segmentTimer;    // Timer to trigger segment stops.
-      let autoStopTimer;   // Timer to auto-stop after 60 seconds.
-      let recordingActive = false;  // Indicates if recording is in progress.
-      
-      // Global flag for replaying all translation lines.
+      let segmentTimer;
+      let autoStopTimer;
+      let recordingActive = false;
       let isReplaying = false;
 
       const recordButton = document.getElementById('record');
@@ -88,14 +119,12 @@
       const sourceLanguageSelect = document.getElementById('sourceLanguage');
       const targetLanguageSelect = document.getElementById('targetLanguage');
 
-      // If Voice Over is turned off, cancel any ongoing speech.
       voiceToggle.addEventListener('change', () => {
         if (!voiceToggle.checked) {
           window.speechSynthesis.cancel();
         }
       });
 
-      // Global function to speak an array of lines sequentially.
       function speakLines(lines, index) {
         if (!isReplaying) return;
         if (index >= lines.length) {
@@ -106,7 +135,6 @@
         const text = lines[index].textContent;
         const selectedTarget = targetLanguageSelect.value;
         const utterance = new SpeechSynthesisUtterance(text);
-        // Set utterance language based on target selection.
         utterance.lang = selectedTarget === "German" ? "de-DE" :
                          selectedTarget === "French" ? "fr-FR" :
                          selectedTarget === "Spanish" ? "es-ES" :
@@ -119,9 +147,7 @@
         window.speechSynthesis.speak(utterance);
       }
 
-      // Replay button toggles playback of all translation lines.
       replayBtn.addEventListener('click', () => {
-        // Momentarily change text color.
         replayBtn.style.color = "#8C9191";
         setTimeout(() => {
           replayBtn.style.color = "#E8E8E6";
@@ -175,12 +201,10 @@
             const mimeType = event.data.type;
             const extension = mimeType.split("/")[1].split(';')[0] || "webm";
             formData.append('audio', event.data, `segment.${extension}`);
-            // Include the source language from the "Translate from" dropdown.
             const sourceLanguage = sourceLanguageSelect.value;
             formData.append('source_language', sourceLanguage);
 
             try {
-              // First, get the original transcription (in the spoken language).
               const transcribeResponse = await fetch('/transcribe', {
                 method: 'POST',
                 body: formData
@@ -193,7 +217,6 @@
                 originalTranscriptionsDiv.appendChild(o);
               }
               
-              // Then, translate the transcription from the source language to the target language.
               const targetLanguage = targetLanguageSelect.value;
               const translateResponse = await fetch('/translate', {
                 method: 'POST',
@@ -210,7 +233,6 @@
                 let t = document.createElement('p');
                 t.innerText = translationText;
                 transcriptionsDiv.appendChild(t);
-                // If voice over is enabled, speak the translation automatically.
                 if (voiceToggle.checked) {
                   let utterance = new SpeechSynthesisUtterance(translationText);
                   utterance.lang = targetLanguage === "German" ? "de-DE" :
