@@ -184,35 +184,37 @@ select {
   #transcriptions, #originalTranscriptions {
     flex: 1 1 100%;
   }
-}/* Responsive adjustments for mobile */
+}
+
+/* Responsive adjustments for mobile */
 @media (max-width: 600px) {
-  /* Increase font sizes and padding for better readability */
+  /* Double the font sizes for headings and text */
   h1 {
-    font-size: 36px; /* Larger main heading */
+    font-size: 48px; /* Larger main heading */
   }
   h2 {
-    font-size: 28px; /* Larger subheadings */
+    font-size: 36px; /* Larger subheadings */
   }
   p, select, button, .instruction-pill {
-    font-size: 20px; /* Increase text size */
-    padding: 12px 24px; /* Add more padding for touch areas */
+    font-size: 28px; /* Double the text size */
+    padding: 20px 32px; /* Add more padding for touch areas */
   }
   
   /* Increase spacing between elements */
   .dropdown-row, .instructions-container {
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 20px;
+    margin-bottom: 30px;
   }
   
   /* Increase padding in the main container */
   .main-container {
-    padding: 30px;
+    padding: 40px;
   }
   
   /* Allow results to stack vertically with more spacing */
   #results {
     flex-direction: column;
-    gap: 25px;
+    gap: 30px;
   }
   
   /* Make result boxes take the full width */
@@ -222,9 +224,10 @@ select {
   
   /* Expand the instruction pills to be more tappable */
   .instruction-pill {
-    font-size: 18px;
-    padding: 16px 20px;
+    font-size: 28px; /* Double text size in pills */
+    padding: 20px 30px;
   }
 }
+
 
 
