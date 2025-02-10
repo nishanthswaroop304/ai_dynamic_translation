@@ -155,35 +155,34 @@ select {
 
 /* Responsive adjustments for mobile */
 @media (max-width: 600px) {
-  /* Increase font sizes and padding for better readability */
+  /* Increase main heading and subheading sizes */
   h1 {
-    font-size: 28px;
+    font-size: 36px;  /* Larger main heading */
   }
   h2 {
-    font-size: 22px;
+    font-size: 28px;  /* Larger subheadings */
   }
+  
+  /* Increase font size and padding for body text, selects, buttons, and instruction pills */
   p, select, button, .instruction-pill {
-    font-size: 18px;
-    padding: 10px 20px;
+    font-size: 22px;
+    padding: 12px 24px;
   }
-  /* Increase padding in main container */
+  
+  /* Optionally, expand the main container to use more screen width */
   .main-container {
     padding: 20px;
+    max-width: 100%;
   }
-  /* Allow results to wrap: force the boxes to take 100% width (stack vertically) */
+  
+  /* Force the results container to stack vertically with bigger boxes */
   #results {
     flex-direction: column;
-    gap: 20px;
   }
-  /* Optionally, adjust the dropdown row to stack vertically */
-  .dropdown-row {
-    flex-direction: column;
-    align-items: center;
-  }
-  /* Let instruction pills wrap more gracefully */
-  .instructions-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+  
+  /* Make each result box take full width */
+  #transcriptions, #originalTranscriptions {
+    flex: 1 1 100%;
   }
 }
+
