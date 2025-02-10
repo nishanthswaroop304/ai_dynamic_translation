@@ -184,5 +184,47 @@ select {
   #transcriptions, #originalTranscriptions {
     flex: 1 1 100%;
   }
+}/* Responsive adjustments for mobile */
+@media (max-width: 600px) {
+  /* Increase font sizes and padding for better readability */
+  h1 {
+    font-size: 36px; /* Larger main heading */
+  }
+  h2 {
+    font-size: 28px; /* Larger subheadings */
+  }
+  p, select, button, .instruction-pill {
+    font-size: 20px; /* Increase text size */
+    padding: 12px 24px; /* Add more padding for touch areas */
+  }
+  
+  /* Increase spacing between elements */
+  .dropdown-row, .instructions-container {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  /* Increase padding in the main container */
+  .main-container {
+    padding: 30px;
+  }
+  
+  /* Allow results to stack vertically with more spacing */
+  #results {
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  /* Make result boxes take the full width */
+  #transcriptions, #originalTranscriptions {
+    flex: 1 1 100%;
+  }
+  
+  /* Expand the instruction pills to be more tappable */
+  .instruction-pill {
+    font-size: 18px;
+    padding: 16px 20px;
+  }
 }
+
 
